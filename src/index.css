@@ -38,7 +38,7 @@ body {
   width: 100%;
   padding: 0 10px;
 }
-.resultContainer .btn {
+.btnConpy {
   position: absolute;
   top: 5px;
   right: 5px;
@@ -52,11 +52,27 @@ body {
 svg {
   fill: #fb9961;
 }
-.btn {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  width: 40px;
+form {
+  width: 100%;
+}
+.setting {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0;
+}
+.btnSubmit {
+  display: flex;
+  justify-content: center;
   height: 40px;
+  width: 100%;
+  color: #fb9961;
+  padding: 8px 12px;
   font-size: 20px;
+  border: 1px solid #fb9961;
+  background-color: transparent;
+  cursor: pointer;
+}
+.settingNumber{
+  width: 70px;
 }
