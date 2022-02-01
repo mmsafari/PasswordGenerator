@@ -10,27 +10,37 @@ const PasswordGenerator = () => {
     numbers: true,
     symbols: true,
   });
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) =>{
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value =
       event.target.type === "number"
         ? event.target.value
         : event.target.checked;
-        setInput((prev) => ({
-          ...prev,
-          [event.target.name]: value
-        }));
-  }
-  const handleGenerate = (event: React.FormEvent<HTMLFormElement>)=>{
+    setInput((prev) => ({
+      ...prev,
+      [event.target.name]: value,
+    }));
+  };
+  const handleCopy = () => {
+    if (!navigator.clipboard || password === "") return;
+    navigator.clipboard.writeText(password).then(
+      () => {
+        setCopy(true);
+        setTimeout(() => setCopy(false), 2000);
+      },
+      (err) => console.error("Could not copy text: ", err)
+    );
+  };
+  const handleGenerate = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const { length, uppercase, numbers, symbols } = input;
     setPassword(generatePassword(length, uppercase, numbers, symbols));
-  }
+  };
   return (
     <div className="container">
       <p className="mainTitle">Password Generator</p>
       <div className="resultContainer">
-        <span>sdsd</span>
-        <button className="btnConpy" title="Copy">
+        <span>{password}</span>
+        <button className="btnConpy" title="Copy" onClick={handleCopy}>
           <svg
             width="16"
             height="16"
@@ -46,7 +56,7 @@ const PasswordGenerator = () => {
           </svg>
         </button>
       </div>
-      <form  onSubmit={handleGenerate}>
+      <form onSubmit={handleGenerate}>
         <div className="settings">
           <div className="setting">
             <label>Password Length</label>
@@ -68,7 +78,6 @@ const PasswordGenerator = () => {
               id="uppercase"
               checked={input.uppercase}
               onChange={handleChange}
-              
             />
           </div>
           <div className="setting">
@@ -94,7 +103,7 @@ const PasswordGenerator = () => {
         </div>
 
         <button className="btnSubmit" type="submit">
-          Generate Password
+          Generate Password {isCopy && <span>.. Copied!</span>}
         </button>
       </form>
     </div>
